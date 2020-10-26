@@ -1,0 +1,110 @@
+---
+fqdn: myplay.local
+
+httpd_docroot: /storage/ArchAssets/public
+httpd_force_ssl: true
+httpd_ssl_enabled: true
+httpd_try_files: $uri $uri/ /index.php?$args
+httpd_index: index.html index.htm index.php
+httpd_client_max_body_size: 150m
+httpd_docroot_protected_files: /storage/clear
+httpd_sendfile: 'on'
+httpd_restrict_health: true
+
+# when set to true, simplesamlphp location is added to nginx and SSO Auth Adapter
+# gets added to ZfcUser config through local.php.
+sso_enabled: false
+
+php_packages:
+  - php7.0-mysql
+  - php7.0-curl
+  - php7.0-intl
+  - php7.0-mcrypt
+  - php7.0-sqlite3
+  - php7.0-imagick
+  - php7.0-apcu
+  - php7.0-apcu-bc
+  - php7.0-xml
+  - php7.0-bcmath
+  - php7.0-mbstring
+  - php7.0-zip
+  - php7.0-soap
+
+php_ini_overrides:
+  - upload_max_filesize=150M
+  - post_max_size=155M
+  - date.timezone=America/Sao_Paulo
+  - memory_limit=512M
+  - session.cache_limiter=
+  - session.use_strict_mode=1
+  - session.cookie_httponly=1
+  - session.cookie_secure=1
+
+php_fpm_ini_overrides:
+  - display_errors=Off
+  - error_reporting=E_ALL
+
+session_gc_maxlifetime: 1440
+
+# var for setting deferant read timeout other then the nginx default of 30
+var_fastcgi_read_timeout: 180
+
+# var for setting php fpm timeout other then the nginx default of 30
+max_execution_time:
+
+php_cli_ini_overrides:
+  - display_errors=On
+  - error_reporting=E_ALL
+
+httpd_ssl_cert_path: /etc/ssl/certs/myplay.crt
+httpd_ssl_key_path: /etc/ssl/private/myplay.key
+
+httpd_ssl_cert: |
+  -----BEGIN CERTIFICATE-----
+  MIIDGjCCAgICCQCYfsL6Aa+DJTANBgkqhkiG9w0BAQsFADBPMQswCQYDVQQGEwJC
+  UjELMAkGA1UECAwCU1AxCzAJBgNVBAcMAlNQMQ8wDQYDVQQKDAZNeXBsYXkxFTAT
+  BgNVBAMMDG15cGxheS5sb2NhbDAeFw0xOTAyMDYxNzM4NTdaFw0yMDAyMDYxNzM4
+  NTdaME8xCzAJBgNVBAYTAkJSMQswCQYDVQQIDAJTUDELMAkGA1UEBwwCU1AxDzAN
+  BgNVBAoMBk15cGxheTEVMBMGA1UEAwwMbXlwbGF5LmxvY2FsMIIBIjANBgkqhkiG
+  9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvdh3OhvNtcD0GMi1oZTWqSD4LY2Kx8eLOMss
+  Q91SbWOn7LVxq0wfVdZfLvQS/oubFVvdf6yxAKoX6S0OfvVW4lqVYp2geellYwNw
+  xLV6L6JZNY3t2pNXgQ15Ht4ZbEgbpr9YeDG6oGIX8WedrsKRvpY8ZUPxb1ImaGp2
+  +du7ByibTVWE3lNVGEEla+Bff+H5BBc181lVH1UyFfe+FtESa4zrSjOqMulRQBRu
+  uB5L00dsf7i7tADFddo4zfHmwBrW6cxl69iC9lMQojWv7vRgYBOxG5CqOqGj1pt6
+  ouvWQ404GZctOA0wyQYXL864+XOiGY9k1O1bas9SUokgRc26CwIDAQABMA0GCSqG
+  SIb3DQEBCwUAA4IBAQBHsYULYEsw8LTFeFj7G5uZrc/cTPL8MTijF/H4XdoJKcTY
+  Hl3gJGIAwgaZDuY1uucWHdmbKT5d4bQX9SBrfQttkde9gLHS1IsaUmfkBBF2wCsx
+  o0qDubgnpFws0YoUlfc1kDZG4+XsGa5/wmS7+91OEMDoJcYd9YcNyxSmo1opJGHw
+  86m/qR8o8MtZ2UzFX7RnppEtJ9ejyZTBeQN1tZJUfgi6ikaBDOY+8227dLODFGLt
+  iqW+r25/szLA6RjmtTfFbd3OpGiYNGvOrQnZmU9dX+oMVXRf9AY36BIdLe9qgHi5
+  yx/S8S9qqhLbe/+k/sNYRlXWdt9zVQYkXL8q4DtR
+  -----END CERTIFICATE-----
+
+httpd_ssl_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEowIBAAKCAQEAvdh3OhvNtcD0GMi1oZTWqSD4LY2Kx8eLOMssQ91SbWOn7LVx
+  q0wfVdZfLvQS/oubFVvdf6yxAKoX6S0OfvVW4lqVYp2geellYwNwxLV6L6JZNY3t
+  2pNXgQ15Ht4ZbEgbpr9YeDG6oGIX8WedrsKRvpY8ZUPxb1ImaGp2+du7ByibTVWE
+  3lNVGEEla+Bff+H5BBc181lVH1UyFfe+FtESa4zrSjOqMulRQBRuuB5L00dsf7i7
+  tADFddo4zfHmwBrW6cxl69iC9lMQojWv7vRgYBOxG5CqOqGj1pt6ouvWQ404GZct
+  OA0wyQYXL864+XOiGY9k1O1bas9SUokgRc26CwIDAQABAoIBAFKdqQT4pIS7+33t
+  ml0+0Eu5tUbdmc9m3wdQI2tFHWHNRH6WV2kcL2bDa5ibTsjHKC4bVEEDfeO0IcOv
+  f+dwDOdkVC4eOn/TOfPkw2ZXM10XYYsUwLWl+SaIHnV4YcfleWMPUgi8W2MATTsY
+  xF4Q/ivaZV4MOz0emuhFrJD/NlzeZoxuLjD9oVyILPN14IswZiBiYE+dxyHlDemu
+  KsEUqw3w2pxtWz7NXNlnS7AfBwofTLWGq2k7jw0KPGK9p3/h8AtgLLhr23V85jTH
+  EdJTtVx0QHzBknCKxfnr8XMe8vLWWhG585pappoB7A9BX5i0dopKcGQnjHttJ5Jo
+  13GRNAECgYEA7aboFzjUz/LFl5o9YtT9PtQmVrdRvxM0zdYXCSk9YxtINalplwWl
+  CjRDu/V5tVyzgC43F49N1FKOc+BS+NVV0O2y5ah5AHDa0RS3ZDQdyQVBuxXZacOV
+  MB9pg4wQa39H/agw3xbRhBNvDmUVAUfk4/c8QbJEv/m7Qah13KtlVksCgYEAzICv
+  ZcFABmI4Lv9/VWoKjxg9RVRRfTRNWI5UIt/wNbeRHA1v4qsSMZYVKJrDsE3ge3Z1
+  NbOb0RsGv20QXi1S60u77sWzoq4J6oP3mB9SUkXWXmyHN/j6AqVMJTMAtBFhw6t1
+  DNEJr9O+wyBYWsD1y7ebfzUdOD8VnjRN6mT500ECgYBNT6bhJxPUMl4lW3/szu0z
+  q0BtpWVqi4z6CVOlH01hGFb9XgeDocp271m5o7ncTjP21xIFEBF5qQG+oJNdb8lj
+  FnDEVXJHum705ZBjgLDP3G3ttsXrqjy2UwG4UbBlyBpbYoPDj2DJXqkaPbf/mqvT
+  nXJ0zNGgwlUwnuT4zKlC0QKBgH7+ou1ztsjAEdfNvktSkMAP82ysUfaIlkeaC1Gk
+  80zIdAqRpZuDVMcKRpVylndTxUWmaF8y7F5MhEI3/mQdjVKlM02x5D3wCiRiU01a
+  lgqVZ+w3RTlTGh6ue7zWEWfBK48RWJze6z8PJXWTDos9LOaXXK8AUubs9gXKwV//
+  2MyBAoGBAN3LDPYzsi6e2oVedF400+yImy4OEH7lBpZuIp2uiOkYzJvdPhTGp56E
+  jfGkJlqv4aNylznx0SNRL3gQylmnU9TlMgGl72v5BBYb8/hmxIHPq94t3evBKcak
+  7K+V9phqW71TCnI+jJVsrgKARxnMoYckTCwmLbciWzusNhN3WtLw
+  -----END RSA PRIVATE KEY-----
